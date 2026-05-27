@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Peach-Printer 模版设计器</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="web打印,peach-printer,前端自动分页打印" />
+    <meta name="Description" content="Peach-Printer是一款优秀的Web打印解决方案，支持无需预览直接打印、表格分页汇总、调用简单，兼容主流浏览器及IE。" />
+    <link rel="shortcut icon" href="logo.png">
+    <link rel="stylesheet" href="./core/layui.css">
+    <link rel="stylesheet" href="./core/icon/iconfont.css">
+    <link rel="stylesheet" href="./core/icon2/iconfont.css">
+    <link rel="stylesheet" href="./core/peach-designer.css">
+    <script src="./core/layui.js"></script>
+    <script src="./core/peach-designer-min.js?v=3.1704"></script>
+    <script src="./core/peach-printer-min.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="center menu-panel" id="toolbar">
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-import" title="导入">
+                    <i class="layui-icon layui-icon-file layui-font-20"></i>导入
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-download" title="下载">
+                    <i class="layui-icon layui-icon-download layui-font-20"></i>下载
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-save" title="保存">
+                    <i class="layui-icon layui-icon-save layui-font-20"></i>保存
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-templecode" title="模版">
+                    <i class="layui-icon layui-icon-data layui-font-20"></i>模版
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-preivew" title="预览">
+                    <i class="layui-icon layui-icon-preview layui-font-20"></i>预览
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-preivew2" title="无插件预览">
+                    <i class="layui-icon layui-icon-preview layui-font-20"></i>预览2
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-convertpdf" title="转PDF">
+                    <i class="layui-icon layui-icon-export-pdf layui-font-20"></i>转PDF
+                </button>
+            </div>
+
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-insert-line">
+                    <i class="layui-icon layui-icon-shape-line layui-font-20"></i>线条
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-insert-ellipse">
+                    <i class="layui-icon layui-icon-shape-ellipse layui-font-20"></i>椭圆
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-insert-rect">
+                    <i class="layui-icon layui-icon-shape-rect layui-font-20"></i>矩形
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-insert-text">
+                    <i class="layui-icon layui-icon-text layui-font-20"></i>文本
+                </button>
+                <button type="button" class="layui-btn  layui-btn-primary" id="lay-insert-picture">
+                    <i class="layui-icon layui-icon-picture layui-font-20"></i>图片
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-insert-barcode">
+                    <i class="layui-icon layui-icon-barcode layui-font-20"></i>条码
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-insert-qrcode">
+                    <i class="layui-icon layui-icon-qrcode layui-font-20"></i>二维码
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-insert-list">
+                    <i class="layui-icon layui-icon-list layui-font-20"></i>列表
+                </button>
+            </div>
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-moveup" title="上移一层">
+                    <i class="layui-icon layui-icon-moveup layui-font-20"></i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-movedown" title="下移一层">
+                    <i class="layui-icon layui-icon-movedown layui-font-20"></i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-delete" title="删除">
+                    <i class="layui-icon layui-icon-delete layui-font-20"></i>
+                </button>
+            </div>
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-aline-top" title="顶部对齐">
+                    <i class="layui-icon layui-icon-aline-top layui-font-20"></i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-aline-bottom" title="底部对齐">
+                    <i class="layui-icon layui-icon-aline-bottom layui-font-20"></i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-aline-left" title="左侧对齐">
+                    <i class="layui-icon layui-icon-aline-left layui-font-20"></i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-aline-right" title="右侧对齐">
+                    <i class="layui-icon layui-icon-aline-right layui-font-20"></i>
+                </button>
+
+            </div>
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-temples" title="示例模版">
+                    <i class="layui-icon layui-icon-file layui-font-20"></i>示例模版
+                    <i class="layui-icon layui-icon-down layui-font-20"></i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-locat" title="预览设置">
+                    <i class="layui-icon layui-icon-set layui-font-20"></i>预览设置
+                    <i class="layui-icon layui-icon-down layui-font-20"></i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="lay-system" title="系统设置">
+                    <i class="layui-icon layui-icon-set layui-font-20"></i>系统
+                    <i class="layui-icon layui-icon-down layui-font-20"></i>
+                </button>
+            </div>
+        </div>
+        <div class="right title-panel" id="property-title">
+
+        </div>
+    </div>
+    <div class="content">
+        <div class="center canvas-panel" id="lay-canvas-container">
+
+        </div>
+        <div class="right property-panel" id="property-panel">
+
+        </div>
+    </div>
+    <div class="footer status-panel">
+        <span class="status-text"></span>
+    </div>
+    <input style="display:none;" type="file" id="input-image" accept="image/*">
+    <input style="display:none;" type="file" id="input-file" accept="*.txt">
+    <input style="display:none;" type="file" id="input-chromato" accept="image/*">
+
+
+    <script>
+        const list = [
+            {
+                title: '进销存单据类',
+                child: [
+                    {
+                        title: '销售业务单示例',
+                        template: "template/101.json",
+                        datasource: "template/101.txt",
+                    },
+                    {
+                        title: '仓库入库单示例',
+                        template: "template/102.json",
+                        datasource: "template/102.txt",
+                    },
+                    {
+                        title: '仓库出库单示例',
+                        template: "template/103.json",
+                        datasource: "template/103.txt",
+                    },
+                ]
+            }, {
+                title: '发票收据类',
+                child: [
+                    {
+                        title: '发票套打示例',
+                        template: "template/202.json",
+                        datasource: "template/202.txt",
+                    },
+                ]
+            }, {
+                title: '长度不固定单据类',
+                child: [
+                    {
+                        title: '超市小票示例',
+                        template: "template/301.json",
+                        datasource: "template/301.txt",
+                    },
+                ]
+            }
+        ]
+        const saveTemplate = function (data) {
+            alert("集成到业务系统后此次回调业务系统保存模版数据调用");
+        }
+
+        layui.use(function () {
+            LayDesigner.init({
+                template: undefined,//初始化后默认加载的模版数据
+                datasource: undefined,//初始化后默认加载的预览数据源
+                templateList: list,//示例模版使用的示例调用地址
+                savebtn: false,//是否显示保存按钮,默认false
+                savefunc: saveTemplate,//此处集成保存回调方法，data为模版json数据
+            })
+        });
+
+
+
+    </script>
+</body>
+
+</html>

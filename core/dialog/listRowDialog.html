@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>列表编辑</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="html5,javascript,web development,peach,printer,设计器" />
+    <meta name="Description" content="Peach-Printer 模版设计器" />
+    <link rel="shortcut icon" href="logo.png">
+    <link rel="stylesheet" href="../layui.css">
+    <link rel="stylesheet" href="../icon/iconfont.css">
+    <link rel="stylesheet" href="../icon2/iconfont.css">
+    <script src="../layui.js"></script>
+</head>
+
+<body>
+    <table class="layui-hide" id="dlg-list-table" style="width: 100%;height: 100%;"></table>
+    <script type="text/html" id="table-tool">
+        <div class="layui-clear-space">
+          <a class="layui-btn layui-btn-xs layui-bg-blue" lay-event="delete">删除</a>
+        </div>
+    </script>
+    <script type="text/html" id="table-toolbar-id">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-bg-blue" lay-event="add">新增一行</button>
+        </div>
+    </script>
+    <script>
+        function setData(cols, rows) {
+            const tablecols = []
+            cols.forEach(col => {
+                tablecols.push({
+                    field: col.field,
+                    title: col.title,
+                    width: 120,
+                    align: 'center',
+                    edit: true,
+                })
+            });
+            tablecols.push({
+                field: "opr",
+                title: "操作",
+                width: 120,
+                align: 'center',
+                templet: '#table-tool',
+                fixed: 'right',
+            })
+            layui.use(function () {
+                const $ = layui.$;
+                const table = layui.table;
+                const form = layui.form;
+                const dropdown = layui.dropdown;
+                const laydate = layui.laydate;
+                const colorpicker = layui.colorpicker;
+                const util = layui.util;
+                table.render({
+                    elem: '#dlg-list-table',
+                    id: 'table-data',
+                    page: false,
+                    data: rows,
+                    toolbar: '#table-toolbar-id',
+                    height: 'full-10',
+                    cols: [tablecols],
+                })
+
+                table.on('toolbar(table-data)', function (obj) {
+                    const tabledata = layui.table.getData('table-data');
+                    if (obj.event == 'add') {
+                        tabledata.push({})
+                        table.reload('table-data', {
+                            data: tabledata
+                        });
+                    }
+                });
+                table.on('tool(table-data)', function (obj) {
+                    const tabledata = layui.table.getData('table-data');
+                    var index = obj.index; // 获得当前行数据
+                    if (obj.event == 'delete') {
+                        tabledata.splice(index, 1)
+                        table.reload('table-data', {
+                            data: tabledata
+                        });
+                    }
+                });
+            });
+        }
+        function getData() {
+            return layui.table.getData('table-data')
+        }
+    </script>
+</body>
+
+</html>

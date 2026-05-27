@@ -1,0 +1,85 @@
+<table class="pch-form">
+    <tr>
+        <td class="form-label">起点坐标</td>
+        <td class="form-value">
+            <input type="number" class="form-input-number form-half"  id="form-ax1">
+            <input type="number" class="form-input-number form-half"  id="form-ay1">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">终点坐标</td>
+        <td class="form-value">
+            <input type="number" class="form-input-number form-half"  id="form-ax2">
+            <input type="number" class="form-input-number form-half"  id="form-ay2">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">字体</td>
+        <td class="form-value">
+            <select name="" id="form-font" class="form-input-select">
+                <option value="SimSun">宋体</option>
+                <option value="FangSong">仿宋</option>
+                <option value="KaiTi">楷体</option>
+                <option value="SimHei">黑体</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">字号颜色<sup class="form-tip" title="选择溢出缩放,文本内容超出文本框后会自动缩小字体适应文本框尺寸">?</sup></td>
+        <td class="form-value">
+            <select name="" id="form-size" class="form-input-select" style="width: 100px;">
+                <option value="12">12px</option>
+                <option value="14">14px</option>
+                <option value="16">16px</option>
+                <option value="20">20px</option>
+                <option value="24">24px</option>
+                <option value="32">32px</option>
+                <option value="40">40px</option>
+                <option value="52">52px</option>
+                <option value="64">64px</option>
+                <option value="80">80px</option>
+                <option value="100">100px</option>
+                <option value="120">120px</option>
+            </select>
+            <input type="color" name="" id="form-color" class="form-input-color">
+            <div class="form-button-checkbox" id="form-overflow">溢出缩放</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">水平对齐</td>
+        <td class="form-value">
+            <div class="form-button-radio" lay-radio="align" data-value="left">左侧</div>
+            <div class="form-button-radio" lay-radio="align" data-value="center">居中</div>
+            <div class="form-button-radio" lay-radio="align" data-value="right">右侧</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">垂直对齐</td>
+        <td class="form-value">
+            <div class="form-button-radio" lay-radio="vertical" data-value="top">靠上</div>
+            <div class="form-button-radio" lay-radio="vertical" data-value="middle">中间</div>
+            <div class="form-button-radio" lay-radio="vertical" data-value="bottom">靠下</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">字体样式</td>
+        <td class="form-value">
+            <div class="form-button-checkbox" id="form-bold">加粗</div>
+            <div class="form-button-checkbox" id="form-italic">斜体</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">文本类型<sup class="form-tip" title="表达式采用“{变量}”格式计算显示文本内容">?</sup></td>
+        <td class="form-value">
+            <div class="form-button-radio" lay-radio="type" data-value="1">变量</div>
+            <div class="form-button-radio" lay-radio="type" data-value="0">表达式</div>
+            <div class="form-button-radio" lay-radio="type" data-value="2">文本</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">内容</td>
+        <td class="form-value">
+            <textarea class="form-input-textarea" id="form-text"></textarea>
+        </td>
+    </tr>
+</table>

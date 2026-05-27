@@ -1,0 +1,133 @@
+<table class="pch-form">
+    <tr>
+        <td class="form-label">起点坐标</td>
+        <td class="form-value">
+            <input type="number" class="form-input-number form-half"  id="form-ax1">
+            <input type="number" class="form-input-number form-half"  id="form-ay1">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">终点坐标</td>
+        <td class="form-value">
+            <input type="number" class="form-input-number form-half"  id="form-ax2">
+            <input type="number" class="form-input-number form-half"  id="form-ay2">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">分页配置<sup class="form-tip" title="当尾页行数据不满一页时,是否用空行填充剩余空间">?</sup></td>
+        <td class="form-value">
+            <div class="form-button-checkbox" id="form-rowfill">
+                分页补全
+            </div>
+            <div class="form-button-checkbox" id="form-footerfill">
+                页脚补全
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">边框样式</td>
+        <td class="form-value">
+            <select id="form-borderWeight" class="form-input-select" style="width: 180px;" title="边框线条宽度">
+                <option value="1">1px</option>
+                <option value="2">2px</option>
+                <option value="3">3px</option>
+            </select>
+            <input type="color" id="form-borderColor" class="form-input-color" title="边框线条颜色">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">标题显示</td>
+        <td class="form-value">
+            <input type="checkbox" id="form-title" class="form-input-checkbox" title="是否显示标题">
+            <div class="form-icon-checkbox" id="form-titleTop">
+                <i class="layui-icon layui-icon-top-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-titleRight">
+                <i class="layui-icon layui-icon-right-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-titleBottom">
+                <i class="layui-icon layui-icon-bottom-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-titleLeft">
+                <i class="layui-icon layui-icon-left-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-titleInside">
+                <i class="layui-icon layui-icon-inside-border-v layui-font-20"></i>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">标题行高<sup class="form-tip" title="单位：(0.01mm)">?</sup></td>
+        <td class="form-value">
+            <input type="number" class="form-input-number" id="form-titleHeight">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">表尾显示</td>
+        <td class="form-value">
+            <input type="checkbox" id="form-footer" class="form-input-checkbox" title="是否显示表尾">
+            <div class="form-icon-checkbox" id="form-footerTop">
+                <i class="layui-icon layui-icon-top-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-footerRight">
+                <i class="layui-icon layui-icon-right-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-footerBottom">
+                <i class="layui-icon layui-icon-bottom-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-footerLeft">
+                <i class="layui-icon layui-icon-left-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-footerInside">
+                <i class="layui-icon layui-icon-inside-border-v layui-font-20"></i>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">表尾行高<sup class="form-tip" title="单位：(0.01mm)">?</sup></td>
+        <td class="form-value">
+            <input type="number" class="form-input-number" id="form-footerHeight">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">内容边框</td>
+        <td class="form-value">
+            <div class="form-icon-checkbox" id="form-rowTop">
+                <i class="layui-icon layui-icon-top-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-rowRight">
+                <i class="layui-icon layui-icon-right-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-rowBottom">
+                <i class="layui-icon layui-icon-bottom-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-rowLeft">
+                <i class="layui-icon layui-icon-left-border layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-rowInsideH">
+                <i class="layui-icon layui-icon-inside-border-h layui-font-20"></i>
+            </div>
+            <div class="form-icon-checkbox" id="form-rowInsideV">
+                <i class="layui-icon layui-icon-inside-border-v layui-font-20"></i>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">内容行高<sup class="form-tip" title="单位：(0.01mm)">?</sup></td>
+        <td class="form-value">
+            <input type="number" class="form-input-number" id="form-rowHeight">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">内容变量<sup class="form-tip" title="数据源JSON中行数据的KEY值,为空时取模版中元素节点的rows集合属性">?</sup></td>
+        <td class="form-value">
+            <input type="text" id="form-rowdata" class="form-input-number">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label"></td>
+        <td class="form-value">
+            <input type="button" class="form-input-button" id="form-button-cols" value="编辑列属性">
+        </td>
+    </tr>
+</table>

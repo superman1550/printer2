@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>列表编辑</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="html5,javascript,web development,peach,printer,设计器" />
+    <meta name="Description" content="Peach-Printer 模版设计器" />
+    <link rel="shortcut icon" href="logo.png">
+    <link rel="stylesheet" href="../layui.css">
+    <link rel="stylesheet" href="../icon/iconfont.css">
+    <link rel="stylesheet" href="../icon2/iconfont.css">
+    <script src="../layui.js"></script>
+</head>
+
+<body>
+    <table class="layui-hide" id="dlg-list-table" style="width: 100%;height: 100%;"></table>
+    <script type="text/html" id="table-tool">
+        <div class="layui-clear-space">
+          <a class="layui-btn layui-btn-xs layui-bg-blue" lay-event="up">上移</a>
+          <a class="layui-btn layui-btn-xs layui-bg-blue" lay-event="down">下移</a>
+          <a class="layui-btn layui-btn-xs layui-bg-blue" lay-event="delete">删除</a>
+        </div>
+    </script>
+    <script type="text/html" id="table-toolbar-id">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-bg-blue" lay-event="add">新增一行</button>
+        </div>
+    </script>
+    <script type="text/html" id="table-display">
+        <select  lay-filter="table-display-select" lay-append-to="body">
+            <option value="text" {{= 'text' === d.display ? 'selected' : '' }}>文本</option>
+            <option value="image" {{= 'image' === d.display ? 'selected' : '' }}>图片</option>
+            <option value="barcode" {{= 'barcode' === d.display ? 'selected' : '' }}>条码</option>
+            <option value="qrcode" {{= 'qrcode' === d.display ? 'selected' : '' }}>二维码</option>
+        </select>
+    </script>
+    <script type="text/html" id="table-font">
+        <select  lay-filter="table-font-select" lay-append-to="body">
+            <option value="SimSun" {{= 'SimSun' === d.font ? 'selected' : '' }}>宋体</option>
+            <option value="FangSong" {{= 'FangSong' === d.font ? 'selected' : '' }}>仿宋</option>
+            <option value="KaiTi" {{= 'KaiTi' === d.font ? 'selected' : '' }}>楷体</option>
+            <option value="SimHei" {{= 'SimHei' === d.font ? 'selected' : '' }}>黑体</option>
+        </select>
+    </script>
+    <script type="text/html" id="table-size">
+        <select  lay-filter="table-size-select" lay-append-to="body">
+            <option value="12"  {{= 12 === d.size ? 'selected' : '' }}>12px</option>
+            <option value="14"  {{= 14 === d.size ? 'selected' : '' }}>14px</option>
+            <option value="16"  {{= 16 === d.size ? 'selected' : '' }}>16px</option>
+            <option value="20"  {{= 20 === d.size ? 'selected' : '' }}>20px</option>
+            <option value="24"  {{= 24 === d.size ? 'selected' : '' }}>24px</option>
+            <option value="32"  {{= 32 === d.size ? 'selected' : '' }}>32px</option>
+            <option value="40"  {{= 40 === d.size ? 'selected' : '' }}>40px</option>
+            <option value="52"  {{= 52 === d.size ? 'selected' : '' }}>52px</option>
+            <option value="64"  {{= 64 === d.size ? 'selected' : '' }}>64px</option>
+            <option value="80"  {{= 80 === d.size ? 'selected' : '' }}>80px</option>
+            <option value="100" {{= 100 === d.size ? 'selected' : '' }}>100px</option>
+            <option value="120" {{= 120 === d.size ? 'selected' : '' }}>120px</option>
+        </select>
+    </script>
+    <script type="text/html" id="table-align">
+        <select  lay-filter="table-align-select" lay-append-to="body">
+            <option {{= 'left' === d.align ? 'selected' : '' }} value="left">左侧</option>
+            <option {{= 'center' === d.align ? 'selected' : '' }} value="center">居中</option>
+            <option {{= 'right' === d.align ? 'selected' : '' }} value="right">右侧</option>
+        </select>
+    </script>
+    <script type="text/html" id="table-bold">
+        <input type="checkbox" name="bold[]" value="{{= d.bold}}" title="是|否" lay-skin="switch" lay-filter="table-bold-checkbox" {{= d.bold? "checked" : "" }}>
+    </script>
+    <script type="text/html" id="table-italic">
+        <input type="checkbox" name="italic[]" value="{{= d.italic}}" title="是|否" lay-skin="switch" lay-filter="table-italic-checkbox" {{= d.italic? "checked" : "" }}>
+    </script>
+    <script type="text/html" id="table-width">
+        <input type="number" name="width" value="{{= d.width*100}}" lay-affix="number" lay-filter="table-width-number" step="100" min="100" max="9000000" class="layui-input">
+    </script>
+    <script type="text/html" id="table-footerColspan">
+        <input type="number" name="width" value="{{= d.footerColspan}}" lay-affix="number" lay-filter="table-footerColspan-number" step="1" min="1" max="30" class="layui-input">
+    </script>
+
+
+    <script>
+        const defaultRow = {
+            "field": "",
+            "title": "新增字段",
+            "display": "text",
+            "font": "SimSun",
+            "size": 16,
+            "bold": false,
+            "italic": false,
+            "align": "left",
+            "color": "#000000",
+            "width": 20,
+            "footerText": "",
+            "footerColspan": 1,
+        }
+        function initTabel() {
+            layui.use(function () {
+                const $ = layui.$;
+                const table = layui.table;
+                const form = layui.form;
+                const dropdown = layui.dropdown;
+                const laydate = layui.laydate;
+                const colorpicker = layui.colorpicker;
+                const util = layui.util;
+                table.render({
+                    elem: '#dlg-list-table',
+                    id: 'table-data',
+                    page: false,
+                    toolbar: '#table-toolbar-id',
+                    data: [],
+                    height: 'full-10',
+                    cols: [[ // 表头
+                        { field: 'field', title: '列编码', width: 120, align: 'center', edit: true, fixed: 'left' },
+                        { field: 'title', title: '表头显示', width: 220, align: 'center', edit: true, fixed: 'left' },
+                        { field: 'display', title: '显示样式', width: 120, align: 'center', templet: '#table-display', },
+                        { field: 'width', title: '列宽', width: 140, align: 'center', templet: '#table-width', },
+                        { field: 'align', title: '对齐', width: 120, align: 'center', templet: '#table-align', },
+
+                        { field: 'footerText', title: '表尾显示', width: 160, align: 'center', edit: true, },
+                        { field: 'footerColspan', title: '表尾跨列', width: 100, align: 'center', templet: '#table-footerColspan', },
+                        { field: 'font', title: '字体', width: 120, align: 'center', templet: '#table-font', },
+                        { field: 'size', title: '字号', width: 120, align: 'center', templet: '#table-size', },
+                        { field: 'bold', title: '加粗', width: 100, align: 'center', templet: '#table-bold', },
+                        { field: 'italic', title: '斜体', width: 100, align: 'center', templet: '#table-italic', },
+                        { fixed: 'ope', title: '操作', width: 150, minWidth: 125, templet: '#table-tool', fixed: 'right' }
+                    ]],
+                    done: function (res, curr, count) {
+                        const options = this;
+                        table.getRowData = function (tableId, elem) {
+                            var index = $(elem).closest('tr').data('index');
+                            return table.cache[tableId][index] || {};
+                        };
+                        form.on('select(table-display-select)', function (obj) {
+                            const value = obj.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.display = value;
+                        });
+                        form.on('select(table-font-select)', function (obj) {
+                            const value = obj.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.font = (value);
+                        });
+                        form.on('select(table-size-select)', function (obj) {
+                            const value = obj.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.size = parseInt(value);
+                        });
+                        form.on('select(table-align-select)', function (obj) {
+                            const value = obj.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.align = value;
+                        });
+                        form.on('switch(table-bold-checkbox)', function (obj) {
+                            const checked = obj.elem.checked; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.bold = checked;
+                        });
+                        form.on('switch(table-italic-checkbox)', function (obj) {
+                            const checked = obj.elem.checked; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.italic = checked;
+                        });
+                        form.on('input-affix(table-width-number)', function (obj) {
+                            const value = obj.elem.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.width = value / 100;
+                        });
+                        form.on('input-affix(table-footerColspan-number)', function (obj) {
+                            const value = obj.elem.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.elem);
+                            data.footerColspan = value;
+                        });
+                        $("input[lay-affix='number'][lay-filter='table-width-number']").change(function (obj) {
+                            const value = obj.target.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.target);
+                            data.width = value / 100;
+                        })
+                        $("input[lay-affix='number'][lay-filter='table-footerColspan-number']").change(function (obj) {
+                            const value = obj.target.value; // 获取选中项 value
+                            var data = table.getRowData(options.id, obj.target);
+                            data.footerColspan = value;
+                        })
+
+
+                    },
+                })
+
+
+                table.on('toolbar(table-data)', function (obj) {
+                    const tabledata = layui.table.getData('table-data');
+                    if (obj.event == 'add') {
+                        const newrow = Object.assign({}, defaultRow, { "field": "id" + new Date().getTime() })
+                        tabledata.push(newrow)
+                        table.reload('table-data', {
+                            data: tabledata
+                        });
+                    }
+                });
+                table.on('tool(table-data)', function (obj) {
+                    const tabledata = layui.table.getData('table-data');
+                    var index = obj.index; // 获得当前行数据
+                    if (obj.event == 'delete') {
+                        tabledata.splice(index, 1)
+                        table.reload('table-data', {
+                            data: tabledata
+                        });
+                    } else if (obj.event == 'up') {
+                        if (index > 0) {
+                            const rows = tabledata.splice(index, 1)
+                            tabledata.splice(index - 1, 0, rows[0])
+                            table.reload('table-data', {
+                                data: tabledata
+                            });
+                        }
+                    } else if (obj.event == 'down') {
+                        if (index < tabledata.length - 1) {
+                            const rows = tabledata.splice(index, 1)
+                            tabledata.splice(index + 1, 0, rows[0])
+                            table.reload('table-data', {
+                                data: tabledata
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        function initData() {
+            initTabel();
+            const data = []
+            for (let index = 0; index < 5; index++) {
+                const row = { "field": "id" + new Date().getTime() + index }
+                if (index == 0) {
+                    row.footerText = '表尾'
+                }
+                data.push(Object.assign({}, defaultRow, row))
+            }
+            layui.table.reload('table-data', {
+                data: data
+            });
+        }
+
+        function setData(data) {
+            initTabel();
+            layui.table.reload('table-data', {
+                data: data
+            });
+        }
+
+        function getData() {
+            return layui.table.getData('table-data')
+        }
+    </script>
+</body>
+
+</html>

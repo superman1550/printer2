@@ -1,0 +1,65 @@
+<table class="pch-form">
+    <tr>
+        <td class="form-label">模版名称</td>
+        <td class="form-value">
+            <input type="text" id="form-name" class="form-input-number">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">纸张类型</td>
+        <td class="form-value">
+            <select name="" id="form-paperType" class="form-input-select" style="width: 110px;">
+                <option value="A4">A4</option>
+                <option value="A5">A5</option>
+                <option value="A6">A6</option>
+                <option value="custom">自定义</option>
+                <option value="fit">高度自适应</option>
+            </select>
+            <input type="text" id="form-paperName" class="form-input-number" style="width: 110px;">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">宽×高(mm)</td>
+        <td class="form-value">
+            <input type="number" id="form-width" class="form-input-number" style="width: 110px;">
+            <input type="number" id="form-height" class="form-input-number" style="width: 110px;">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">打印方向</td>
+        <td class="form-value">
+            <select name="" id="form-direction" class="form-input-select">
+                <option value="0">纵向</option>
+                <option value="1">横向</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">指定打印机<sup class="form-tip" title="此属性不为空时,打印时优先使用此打印机，找不到使用默认打印机">?</sup></td>
+        <td class="form-value">
+            <input type="text" id="form-printerName" class="form-input-number">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">打印份数<sup class="form-tip" title="此属性需打印机硬件支持">?</sup></td>
+        <td class="form-value">
+            <input id="form-copies" type="number" class="form-input-number" min="1" max="10" step="1">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">套打背景<sup class="form-tip" title="选择套打的背景图片辅助设置文本框等的位置">?</sup></td>
+        <td class="form-value">
+            <input type="checkbox" id="form-bgshow" class="form-input-checkbox" title="是否显示套打图片">
+
+            <input type="button" class="form-input-button small" id="form-button-chromato-add" value="选择">
+            <input type="button" class="form-input-button small" id="form-button-chromato-clean" value="清除">
+        </td>
+    </tr>
+    <tr>
+        <td class="form-label">偏移(左,上)<sup class="form-tip" title="打印试模版的整体偏移量（单位：mm）">?</sup></td>
+        <td class="form-value">
+            <input type="number" id="form-offsetX" class="form-input-number" style="width: 110px;">
+            <input type="number" id="form-offsetY" class="form-input-number" style="width: 110px;">
+        </td>
+    </tr>
+</table>

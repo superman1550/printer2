@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>列表编辑</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="html5,javascript,web development,peach,printer,设计器" />
+    <meta name="Description" content="Peach-Printer 模版设计器" />
+    <link rel="shortcut icon" href="logo.png">
+    <link rel="stylesheet" href="../layui.css">
+    <script src="../layui.js"></script>
+</head>
+
+<body>
+    <pre class="layui-code code-demo" lay-options="{theme: 'dark'}" style="width:100%;height:100%;">
+
+    </pre>
+    <script id="code" type="text/html">//javascript示例代码
+
+//预览
+preview(JSON.stringify("模版JSON对象引用"),"注册码字符串",JSON.stringify("模版数据源对象引用"));
+//打印
+print(JSON.stringify("模版JSON对象引用"),"注册码字符串",JSON.stringify("模版数据源对象引用"));
+//导出PDF
+printPDF(JSON.stringify("模版JSON对象引用"),"注册码字符串",JSON.stringify("模版数据源对象引用"));
+
+
+//预览方法
+function preview(template,license,datasource){
+    var url = "http://127.0.0.1:9523/preview"
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open("POST", url, true);
+    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    httpRequest.onreadystatechange = () => {
+        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            console.info(httpRequest.responseText);
+            var data = JSON.parse(httpRequest.responseText);
+            if(data.code=='0'){
+                alert(data.msg);
+            }
+        }
+    }
+    httpRequest.onerror = function () {
+       alert("Peach-Printer打印控件未启动", { icon: 5, title: '错误' })
+    };
+    httpRequest.send("template=" + encodeURIComponent(template) + "&datasource=" + encodeURIComponent(datasource) + "&license=" + encodeURIComponent(license) );
+}  
+
+//打印方法
+function print(template,license,datasource){
+    var url = "http://127.0.0.1:9523/print" //直接打印地址
+    //var url = "http://127.0.0.1:9523/printDialog" //调用打印设置打印地址
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open("POST", url, true);
+    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    httpRequest.onreadystatechange = () => {
+        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            console.info(httpRequest.responseText);
+            var data = JSON.parse(httpRequest.responseText);
+            if(data.code=='0'){
+                alert(data.msg);
+            }
+        }
+    }
+    httpRequest.onerror = function () {
+       alert("Peach-Printer打印控件未启动", { icon: 5, title: '错误' })
+    };
+    httpRequest.send("template=" + encodeURIComponent(template) + "&datasource=" + encodeURIComponent(datasource) + "&license=" + encodeURIComponent(license) );
+} 
+
+function printDialog(template,license,datasource){
+    var url = "http://127.0.0.1:9523/printDialog" //调用打印设置打印地址
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open("POST", url, true);
+    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    httpRequest.onreadystatechange = () => {
+        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            console.info(httpRequest.responseText);
+            var data = JSON.parse(httpRequest.responseText);
+            if(data.code=='0'){
+                alert(data.msg);
+            }
+        }
+    }
+    httpRequest.onerror = function () {
+       alert("Peach-Printer打印控件未启动", { icon: 5, title: '错误' })
+    };
+    httpRequest.send("template=" + encodeURIComponent(template) + "&datasource=" + encodeURIComponent(datasource) + "&license=" + encodeURIComponent(license) );
+} 
+
+//导出PDF方法
+function printPDF(template,license,datasource){
+    const url = "http://127.0.0.1:9523/printPDF"
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open("POST", url, true);
+    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    httpRequest.responseType = 'blob';
+    httpRequest.onreadystatechange = () => {
+        if (httpRequest.status == 200) {
+            //pdf字节码blob
+            let blob = httpRequest.response;
+            
+        }
+    }
+    httpRequest.onerror = function () {
+        alert("Peach-Printer打印控件未启动")
+    };
+    httpRequest.send("template=" + encodeURIComponent(template) + "&datasource=" + encodeURIComponent(datasource) + "&license=" + encodeURIComponent(license) );
+} 
+    </script>
+    <script>
+
+        layui.use(function () {
+            // code
+            layui.code({
+                elem: '.code-demo',
+                code: document.getElementById("code").innerHTML
+            });
+        })
+    </script>
+</body>
+
+</html>
